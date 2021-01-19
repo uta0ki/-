@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="alert alert-success" role="alert">管理认证成功</div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">薪资管理</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" action="/edit_wage/" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ edit_wage_obj.id }}"/>
+                <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">日期</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="add_date" id="add_date"
+                               value="{{ edit_wage_obj.add_date }}"
+                               placeholder="{{ edit_wage_obj.add_date }}" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="selectClass" class="col-sm-2 control-label">员工</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="selectClass" name="emp">
+                            {% for user in user_list %}
+                                {% ifequal user.employeeNum edit_wage_obj.emp.employeeNum %}
+                                    <option value="{{ user.employeeNum }}" selected>{{ user }}</option>
+                                {% else %}
+                                    <option value="{{ user.employeeNum }}">{{ user }}</option>
+                                {% endifequal %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAge" class="col-sm-2 control-label">工资</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="wage" id="inputSalary"
+
+                               placeholder="工资" value="{{ edit_wage_obj.wage }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8">
+                        <button type="submit" class="btn btn-primary">确定</button>
+                        <button type="button" class="btn btn-white" onclick="javascript:history.go(-1);">返回</button>
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+{% block sidebar %}
+    7
+{% endblock sidebar %}
